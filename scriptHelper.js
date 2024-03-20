@@ -1,5 +1,3 @@
-// Write your helper functions here!
-
 const polyfill = require('cross-fetch/polyfill');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
@@ -33,15 +31,16 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
 
 
- 
+ //TODO - refactor to use list parameter instead of hardcoding
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    //  let documentStatus = validateInput(document);
-    let faultyItems = document.getElementById("faultyItems");
+
+    let faultyItems = list;
     let pilotStatus = document.getElementById("pilotStatus");
     let copilotStatus = document.getElementById("copilotStatus");
     let fuelStatus = document.getElementById("fuelStatus");
     let cargoStatus = document.getElementById("cargoStatus");
     let launchStatus = document.getElementById("launchStatus");
+
 
     let validation = {
         pilot: validateInput(pilot), 
@@ -49,6 +48,10 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         fuel: validateInput(fuelLevel), 
         cargo: validateInput(cargoLevel)
     }
+
+    // console.log(validation);
+
+    // console.log(`${pilot} ${copilot} ${fuelLevel} ${cargoLevel} `);
 
     for (const [key, value] of Object.entries(validation)) {
         if (value === 'Empty') {
@@ -117,10 +120,10 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
  
  async function myFetch() {
-     let planetsReturned;
+    //  let planetsReturned;
      let res;
  
-     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+     let planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
         res = response.json();
          });
     
